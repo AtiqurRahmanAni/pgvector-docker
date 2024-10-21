@@ -1,0 +1,23 @@
+services:
+
+  postgresql_db:
+    container_name: postgresql_db_container
+    image: ankane/pgvector
+    environment:
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: masterpassword
+    ports:
+    - 5432:5432
+    volumes:
+    - ./postgresql:/var/lib/postgresql/data
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com  # Set your pgAdmin email
+      PGADMIN_DEFAULT_PASSWORD: admin           # Set your pgAdmin password
+    ports:
+      - "5050:80" # Expose pgAdmin on localhost:5050
+    depends_on:
+      - postgresql_db
